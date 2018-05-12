@@ -4,10 +4,10 @@
  * Released under MIT license. See LICENSE in the project root for details.
  */
 
-import { INode, CompareFunction } from './types';
+import { INode, CompareFunction, ISplayTree } from './types';
 import { Node } from './node';
 
-export class SplayTree<K, V> {
+export class SplayTree<K, V> implements ISplayTree<K, V> {
   private _root: Node<K, V>;
   private _nodeCount = 0;
 
@@ -63,6 +63,143 @@ export class SplayTree<K, V> {
     }
 
     return false;
+  }
+
+  /**
+   * Determines whether the tree contains a key.
+   *
+   * @param key The key to check.
+   * @return Whether the node contains the key.
+   */
+  public contains(key: K): boolean {
+    if (!this._root) {
+      return false;
+    }
+
+    const node = this._contains(key, this._root);
+    if (node) {
+      this._splay(node);
+    }
+    return !!node;
+  }
+
+  // TODO: jsdoc
+  private _contains(key: K, node: Node<K, V>): Node<K, V> {
+    if (key === node.key) {
+      return node;
+    }
+
+    if (this._compare(key, node.key) < 0) {
+      if (!node.left) {
+        return undefined;
+      }
+      return this._contains(key, node.left);
+    }
+
+    if (this._compare(key, node.key) > 0) {
+      if (!node.right) {
+        return undefined;
+      }
+      return this._contains(key, node.right);
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Splay the tree on a node, bringing it to the root using a series of
+   * rotation operations.
+   *
+   * @param node The node being splayed on.
+   */
+  private _splay(node: Node<K, V>): void {
+    while (node.parent) {
+      const parent = node.parent;
+      if (!parent.parent) {
+        if (parent.left === node) {
+          this._rotateRight(parent);
+        } else {
+          this._rotateLeft(parent);
+        }
+      } else {
+        const gparent = parent.parent;
+        if (parent.left === node && gparent.left === parent) {
+          this._rotateRight(gparent);
+          this._rotateRight(node.parent);
+        } else if (parent.right === node && gparent.right === parent) {
+          this._rotateLeft(gparent);
+          this._rotateLeft(node.parent);
+        } else if (parent.left === node && gparent.right === parent) {
+          this._rotateRight(parent);
+          this._rotateLeft(node.parent);
+        } else {
+          this._rotateLeft(parent);
+          this._rotateRight(node.parent);
+        }
+      }
+    }
+  }
+
+  /**
+   * Rotates a node in a tree left.
+   *
+   *     a                             b
+   *    / \                           / \
+   *   c   b   -> rotateLeft(a) ->   a   e
+   *      / \                       / \
+   *     d   e                     c   d
+   *.
+   * @param x The node being rotated.
+   */
+  private _rotateLeft(x: Node<K, V>): void {
+    const y = x.right;
+    x.right = y.left;
+    if (y.left) {
+      y.left.parent = x;
+    }
+    y.parent = x.parent;
+    if (!x.parent) {
+      this._root = y;
+    } else {
+      if (x === x.parent.left) {
+        x.parent.left = y;
+      } else {
+        x.parent.right = y;
+      }
+    }
+    y.left = x;
+    x.parent = y;
+  }
+
+  /**
+   * Rotates a node in a tree right.
+   *
+   *       b                          a
+   *      / \                        / \
+   *     a   e -> rotateRight(b) -> c   b
+   *    / \                            / \
+   *   c   d                          d   e
+   *
+   * @param x The node being rotated.
+   */
+  private _rotateRight(x: Node<K, V>): void {
+    const y = x.left;
+    x.left = y.right;
+    if (y.right) {
+      y.right.parent = x;
+    }
+    y.parent = x.parent;
+    if (!x.parent) {
+      this._root = y;
+    } else {
+      if (x === x.parent.left) {
+        x.parent.left = y;
+      } else {
+        x.parent.right = y;
+      }
+    }
+    y.right = x;
+    x.parent = y;
   }
 
   /**

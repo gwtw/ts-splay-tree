@@ -11,3 +11,10 @@ export interface INode<K, V> {
   readonly key: K;
   readonly value?: V;
 }
+
+export interface ISplayTree<K, V> {
+  // TODO: Fill out interface
+
+  // TODO: Support adding optional value
+  add(key: K): boolean
+}
