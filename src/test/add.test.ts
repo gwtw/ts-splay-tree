@@ -11,4 +11,11 @@ describe('add', () => {
     tree.add(5);
     assert.equal(tree.size, 5);
   });
+
+  it('should do nothing when adding the same key tree', () => {
+    const tree = new TestSplayTree();
+    tree.add(1);
+    tree.add(1);
+    assert.equal(tree.size, 1);
+  });
 });
