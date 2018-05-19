@@ -2,4 +2,5 @@ sudo: false
 language: node_js
 node_js:
   - 'stable'
+after_install: npm run build
 after_success: nyc report --reporter=text-lcov | coveralls
