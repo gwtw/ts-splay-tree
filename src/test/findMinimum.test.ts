@@ -1,0 +1,14 @@
+import { assert } from 'chai';
+import { TestSplayTree } from './testUtils';
+
+describe('findMinimum', () => {
+  it('should return the minimum of the tree', () => {
+    const tree = new TestSplayTree();
+    tree.add(2);
+    assert.equal(tree.findMinimum(), 2);
+    tree.add(1);
+    assert.equal(tree.findMinimum(), 1);
+    tree.add(3);
+    assert.equal(tree.findMinimum(), 1);
+  });
+});
