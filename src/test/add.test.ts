@@ -3,7 +3,7 @@ import { TestSplayTree } from './testUtils';
 
 describe('add', () => {
   it('should return the size of the tree', () => {
-    const tree = new TestSplayTree();
+    const tree = new TestSplayTree<number, null>();
     tree.add(1);
     tree.add(2);
     tree.add(3);
@@ -13,7 +13,7 @@ describe('add', () => {
   });
 
   it('should do nothing when adding the same key tree', () => {
-    const tree = new TestSplayTree();
+    const tree = new TestSplayTree<number, null>();
     tree.add(1);
     tree.add(1);
     assert.equal(tree.size, 1);

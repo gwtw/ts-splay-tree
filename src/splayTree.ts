@@ -89,25 +89,23 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
 
   // TODO: jsdoc
   private _contains(key: K, node: Node<K, V>): Node<K, V> {
-    if (key === node.key) {
-      return node;
-    }
+    const result = this._compare(key, node.key);
 
-    if (this._compare(key, node.key) < 0) {
+    if (result < 0) {
       if (!node.left) {
         return undefined;
       }
       return this._contains(key, node.left);
     }
 
-    if (this._compare(key, node.key) > 0) {
+    if (result > 0) {
       if (!node.right) {
         return undefined;
       }
       return this._contains(key, node.right);
     }
 
-    return undefined;
+    return node;
   }
 
   /**
@@ -160,14 +158,15 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   private _remove(key: K, node: Node<K, V>): boolean {
-    if (this._compare(key, node.key) < 0) {
+    const result = this._compare(key, node.key);
+    if (result < 0) {
       if (node.left) {
         return this._remove(key, node.left);
       }
       return false;
     }
 
-    if (this._compare(key, node.key) > 0) {
+    if (result > 0) {
       if (node.right) {
         return this._remove(key, node.right);
       }
