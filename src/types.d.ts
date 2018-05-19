@@ -13,7 +13,7 @@ export interface INode<K, V> {
 }
 
 export interface ISplayTree<K, V> {
-  // TODO: Fill out interface
+  readonly size: number;
 
   // TODO: Support adding optional value
   add(key: K): boolean;
