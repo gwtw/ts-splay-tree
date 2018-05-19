@@ -47,10 +47,35 @@ describe('remove', () => {
     assert.isTrue(tree.remove(1));
   });
 
-  it('should remove node with a right sub-tree', () => {
+  it('should remove node with a left node that contains a left sub-tree', () => {
     const tree = new TestSplayTree<number, null>();
     tree.add(1);
+    tree.add(0);
+    tree.add(-1);
+    assert.isTrue(tree.remove(1));
+  });
+
+  it('should remove node with a left node that contains a right sub-tree', () => {
+    const tree = new TestSplayTree<number, null>();
+    tree.add(1);
+    tree.add(-1);
+    tree.add(0);
+    assert.isTrue(tree.remove(1));
+  });
+
+  it('should remove node with a right node that contains a left sub-tree', () => {
+    const tree = new TestSplayTree<number, null>();
+    tree.add(1);
+    tree.add(3);
     tree.add(2);
+    assert.isTrue(tree.remove(1));
+  });
+
+  it('should remove node with a right node that contains a right sub-tree', () => {
+    const tree = new TestSplayTree<number, null>();
+    tree.add(1);
+    tree.add(3);
+    tree.add(3);
     assert.isTrue(tree.remove(1));
   });
 
