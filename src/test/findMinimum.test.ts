@@ -2,6 +2,11 @@ import { assert } from 'chai';
 import { TestSplayTree } from './testUtils';
 
 describe('findMinimum', () => {
+  it('should return undefined if the tree is empty', () => {
+    const tree = new TestSplayTree();
+    assert.equal(tree.findMinimum(), undefined);
+  });
+
   it('should return the minimum of the tree', () => {
     const tree = new TestSplayTree();
     tree.add(2);
