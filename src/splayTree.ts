@@ -37,7 +37,12 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
       return true;
     }
 
-    return this._add(key, this._root);
+    const result = this._add(key, this._root);
+    if (result) {
+      // Splay tree
+      this.contains(key);
+    }
+    return result;
   }
 
   /**
@@ -154,6 +159,8 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     if (!this._root) {
       return false;
     }
+    // Splay tree
+    this.contains(key);
     return this._remove(key, this._root);
   }
 

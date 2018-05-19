@@ -52,14 +52,36 @@ describe('remove', () => {
     tree.add(1);
     tree.add(0);
     tree.add(-1);
+    /**
+     * After splay:
+     *
+     *      1
+     *     /
+     *    0
+     *   /
+     * -1
+     */
     assert.isTrue(tree.remove(1));
   });
+
 
   it('should remove node with a left node that contains a right sub-tree', () => {
     const tree = new TestSplayTree<number, null>();
     tree.add(1);
     tree.add(-1);
     tree.add(0);
+    tree.add(-2);
+    /**
+     * After splay:
+     *
+     *    1
+     *   /
+     * -2
+     *   \
+     *    0
+     *   /
+     * -1
+     */
     assert.isTrue(tree.remove(1));
   });
 
@@ -68,6 +90,17 @@ describe('remove', () => {
     tree.add(1);
     tree.add(3);
     tree.add(2);
+    tree.add(4);
+    /**
+     * After splay:
+     * 1
+     *  \
+     *   4
+     *  /
+     * 2
+     *  \
+     *   3
+     */
     assert.isTrue(tree.remove(1));
   });
 
@@ -75,7 +108,16 @@ describe('remove', () => {
     const tree = new TestSplayTree<number, null>();
     tree.add(1);
     tree.add(3);
-    tree.add(3);
+    tree.add(2);
+    /**
+     * After splay:
+     *
+     * 1
+     *  \
+     *   2
+     *    \
+     *     3
+     */
     assert.isTrue(tree.remove(1));
   });
 
