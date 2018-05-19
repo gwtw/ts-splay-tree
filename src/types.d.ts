@@ -16,5 +16,9 @@ export interface ISplayTree<K, V> {
   // TODO: Fill out interface
 
   // TODO: Support adding optional value
-  add(key: K): boolean
+  add(key: K): boolean;
+  contains(key: K): boolean;
+  findMaximum(): K;
+  findMinimum(): K;
+  remove(key: K): boolean;
 }

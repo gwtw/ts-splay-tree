@@ -107,6 +107,155 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
+   * @return The maximum key of the tree.
+   */
+  public findMaximum(): K {
+    if (!this._root) {
+      return undefined;
+    }
+
+    let current = this._root;
+    while (true) {
+      if (current.right) {
+        current = current.right;
+      } else {
+        return current.key;
+      }
+    }
+  }
+
+  /**
+   * @return The minimum key of the tree.
+   */
+  public findMinimum(): K {
+    if (!this._root) {
+      return undefined;
+    }
+
+    let current = this._root;
+    while (true) {
+      if (current.left) {
+        current = current.left;
+      } else {
+        return current.key;
+      }
+    }
+  }
+
+  /**
+   * Removes a key from the tree.
+   *
+   * @param key The key to remove.
+   * @return Whether the key was removed.
+   */
+  public remove(key: K): boolean {
+    if (!this._root) {
+      return false;
+    }
+    return this._remove(key, this._root);
+  }
+
+  private _remove(key: K, node: Node<K, V>): boolean {
+    if (this._compare(key, node.key) < 0) {
+      if (node.left) {
+        return this._remove(key, node.left);
+      }
+      return false;
+    }
+
+    if (this._compare(key, node.key) > 0) {
+      if (node.right) {
+        return this._remove(key, node.right);
+      }
+      return false;
+    }
+
+    return this._remove2(node);
+  }
+
+  private _remove2(node: Node<K, V>): boolean {
+    if (!node.left && !node.right) {
+      this._removeNodeWithNoChildren(node);
+      return true;
+    }
+
+    if (node.left && !node.right) {
+      this._removeNodeWithLeftOnly(node);
+      return true;
+    }
+
+    if (node.right && !node.left) {
+      this._removeNodeWithRightOnly(node);
+      return true;
+    }
+
+    // both exist, replace with node minimum from right sub-tree and delete the
+    // node from the right sub-tree
+    const minParent = this._findParentOfMinimum(node.right, node);
+    const minNode = minParent.left ? minParent.left : minParent.right;
+    const newKey = minNode.key;
+    this._remove2(minNode);
+    node.key = newKey;
+
+    return true;
+  }
+
+  /**
+   * Removes a node with no children.
+   *
+   * @param tree The tree to remove the node from.
+   * @param node The node to remove.
+   */
+  private _removeNodeWithNoChildren(node: Node<K, V>): void {
+    if (node.parent) {
+      node.parent.removeChild(node);
+    } else {
+      this._root = undefined;
+    }
+    this._nodeCount--;
+  }
+
+  /**
+   * Removes a node with a left child only, moving the left child in to the
+   * node's place.
+   *
+   * @param tree The tree to remove the node from.
+   * @param node The node to remove.
+   */
+  private _removeNodeWithLeftOnly(node: Node<K, V>): void {
+    node.key = node.left.key;
+    node.right = node.left.right;
+    if (node.right) {
+      node.right.parent = node;
+    }
+    node.left = node.left.left;
+    if (node.left) {
+      node.left.parent = node;
+    }
+    this._nodeCount--;
+  }
+
+  /**
+   * Removes a node with a right child only, moving the right child in to the
+   * node's place.
+   *
+   * @param tree The tree to remove the node from.
+   * @param node The node to remove.
+   */
+  private _removeNodeWithRightOnly(node: Node<K, V>): void {
+    node.key = node.right.key;
+    node.left = node.right.left;
+    if (node.left) {
+      node.left.parent = node;
+    }
+    node.right = node.right.right;
+    if (node.right) {
+      node.right.parent = node;
+    }
+    this._nodeCount--;
+  }
+
+  /**
    * Splay the tree on a node, bringing it to the root using a series of
    * rotation operations.
    *
@@ -138,6 +287,17 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
         }
       }
     }
+  }
+
+  /**
+   * @return The parent of the minimum key node in the tree.
+   */
+  private _findParentOfMinimum(node: Node<K, V>, parent: Node<K, V>): Node<K, V> {
+    if (!node.left) {
+      return parent;
+    }
+
+    return this._findParentOfMinimum(node.left, node);
   }
 
   /**
