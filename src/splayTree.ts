@@ -8,8 +8,8 @@ import { INode, CompareFunction, ISplayTree } from './types';
 import { Node } from './node';
 
 export class SplayTree<K, V> implements ISplayTree<K, V> {
-  private _root: Node<K, V>;
-  private _nodeCount = 0;
+  protected _root: Node<K, V>;
+  private _size = 0;
 
   constructor(
     private _compare?: CompareFunction<K, V>
@@ -17,6 +17,10 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     if (!_compare) {
       this._compare = this._defaultCompare;
     }
+  }
+
+  public get size(): number {
+    return this._size;
   }
 
   /**
@@ -29,7 +33,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     // TODO: Support value
     if (!this._root) {
       this._root = new Node(key);
-      this._nodeCount++;
+      this._size++;
       return true;
     }
 
@@ -49,7 +53,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
         return this._add(key, node.left);
       }
       node.left = new Node(key, node);
-      this._nodeCount++;
+      this._size++;
       return true;
     }
 
@@ -58,7 +62,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
         return this._add(key, node.right);
       }
       node.right = new Node(key, node);
-      this._nodeCount++;
+      this._size++;
       return true;
     }
 
@@ -212,7 +216,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     } else {
       this._root = undefined;
     }
-    this._nodeCount--;
+    this._size--;
   }
 
   /**
@@ -232,7 +236,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     if (node.left) {
       node.left.parent = node;
     }
-    this._nodeCount--;
+    this._size--;
   }
 
   /**
@@ -252,7 +256,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     if (node.right) {
       node.right.parent = node;
     }
-    this._nodeCount--;
+    this._size--;
   }
 
   /**
