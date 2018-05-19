@@ -129,6 +129,26 @@ describe('remove', () => {
     assert.isTrue(tree.remove(1));
   });
 
+  it('should remove node with both left and right sub-trees whose right node contains a left sub-tree', () => {
+    const tree = new TestSplayTree<number, null>();
+    tree.add(1);
+    tree.add(0);
+    tree.add(3);
+    tree.add(2);
+    tree.add(4);
+    /**
+     * After splay:
+     *   1
+     *  / \
+     * 0   4
+     *    /
+     *   2
+     *    \
+     *     3
+     */
+    assert.isTrue(tree.remove(1));
+  });
+
   it('should return false when removing a node whose parent has a left child', () => {
     const tree = new TestSplayTree<number, null>();
     tree.add(1);
