@@ -43,3 +43,10 @@ steps:
     coverageType: lines
     coverageThreshold: 100
     coverageFailOption: fixed
+    checkWarnings: false
+    showStatistics: true
+    buildConfiguration: '$(BuildConfiguration)'
+    buildPlatform: '$(BuildPlatform)'
+    explicitFilter: true
+    baseDefinitionId: 3
+    baseBranchRef: refs/heads/master
