@@ -43,10 +43,15 @@ steps:
     coverageType: lines
     coverageThreshold: 100
     coverageFailOption: fixed
-    checkWarnings: false
+    checkWarnings: true
+    warningFailOption: fixed
+    warningFilters: |
+     /\[warning\]/i
+     /\[super\]/i
     showStatistics: true
     buildConfiguration: '$(BuildConfiguration)'
     buildPlatform: '$(BuildPlatform)'
     explicitFilter: true
     baseDefinitionId: 3
     baseBranchRef: refs/heads/master
+    runTitle: 'Run Title'
