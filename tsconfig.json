@@ -9,7 +9,6 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
     "preserveWatchOutput": true
   },
   "exclude": [
