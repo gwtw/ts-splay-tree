@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
-    "test": "nyc -x '**/test/*' mocha lib/test/*.test.js",
+    "test": "nyc -s -x '**/test/*' mocha lib/test/*.test.js",
     "watch": "tsc -w",
     "prepublish": "npm run build"
   },
