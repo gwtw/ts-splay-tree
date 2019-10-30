@@ -35,3 +35,9 @@ steps:
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
   displayName: 'Publish coverage'
+
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@5
+  displayName: 'Check build quality'
+  inputs:
+    checkCoverage: true
+    coverageThreshold: 100
