@@ -1,0 +1,31 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '8.x'
+  displayName: 'Install Node.js'
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@2
+  inputs:
+    versionSpec: '1.9.4'
+  displayName: 'Install Yarn'
+
+- script: yarn
+  displayName: 'Install'
+
+- script: npm run build
+  displayName: 'Build'
+
+- script: npm test
+  displayName: 'Test'
+
+- script: npm run lint
+  displayName: 'Lint'
+
+- script: ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls
+  displayName: 'Public coverage'
