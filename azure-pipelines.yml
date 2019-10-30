@@ -7,7 +7,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '11.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
 - task: YarnInstaller@3
@@ -26,5 +26,5 @@ steps:
 - script: npm run lint
   displayName: 'Lint'
 
-- script: ./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/coveralls/bin/coveralls.js
+- script: NODE_ENV=test ./node_modules/.bin/nyc npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/coveralls/bin/coveralls.js
   displayName: 'Public coverage'
