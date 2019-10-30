@@ -43,6 +43,5 @@
     "src/**/*.ts",
     "!src/test",
     "typings/*.d.ts"
-  ],
-  "dependencies": {}
+  ]
 }
