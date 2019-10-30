@@ -31,7 +31,7 @@
     "@types/node": "^12.12.3",
     "coveralls": "^3.0.0",
     "mocha": "^6.2.2",
-    "nyc": "^11.4.1",
+    "nyc": "^14.1.1",
     "tslint": "^5.9.1",
     "tslint-consistent-codestyle": "^1.13.0",
     "typescript": "3.6"
@@ -43,5 +43,6 @@
     "src/**/*.ts",
     "!src/test",
     "typings/*.d.ts"
-  ]
+  ],
+  "dependencies": {}
 }
