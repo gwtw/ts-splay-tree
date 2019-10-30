@@ -11,6 +11,9 @@ describe('node', () => {
   });
 
   it('should remove the right child', () => {
+    // This isn't expected to ever happen from splay tree since this removeChild
+    // is only ever called when removing the minimum of the 2 children or when
+    // it's the root.
     const node = new Node<number, number>(1);
     const nodeRight = new Node<number, number>(2, node);
     node.right = nodeRight;
