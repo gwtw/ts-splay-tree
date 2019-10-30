@@ -42,3 +42,4 @@ steps:
     checkCoverage: true
     coverageType: lines
     coverageThreshold: 100
+    coverageFailOption: fixed
