@@ -4,7 +4,7 @@
  * Released under MIT license. See LICENSE in the project root for details.
  */
 
-import { INode, CompareFunction, ISplayTree } from './types';
+import { CompareFunction, ISplayTree } from './types';
 import { Node } from './node';
 
 export class SplayTree<K, V> implements ISplayTree<K, V> {
