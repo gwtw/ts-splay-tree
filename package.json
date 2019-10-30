@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
-    "test": "nyc -x '**/test/*' mocha lib/test/*.test.js",
+    "test": "nyc -s -x '**/test/*' mocha lib/test/*.test.js",
     "watch": "tsc -w",
     "prepublish": "npm run build"
   },
@@ -29,9 +29,9 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.3",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.7",
     "mocha": "^6.2.2",
-    "nyc": "^11.4.1",
+    "nyc": "11",
     "tslint": "^5.9.1",
     "tslint-consistent-codestyle": "^1.13.0",
     "typescript": "3.6"
