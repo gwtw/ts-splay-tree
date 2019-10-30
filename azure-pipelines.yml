@@ -36,7 +36,7 @@ steps:
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
   displayName: 'Publish coverage'
 
-- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@5
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@6
   displayName: 'Check build quality'
   inputs:
     checkCoverage: true
