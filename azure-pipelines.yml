@@ -26,5 +26,12 @@ steps:
 - script: npm run lint
   displayName: 'Lint'
 
-- script: ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls
-  displayName: 'Public coverage'
+- script: ./node_modules/.bin/nyc report --reporter=cobertura
+  displayName: 'Coverage report'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+  displayName: 'Publish coverage'
