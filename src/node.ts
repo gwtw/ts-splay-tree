@@ -25,6 +25,7 @@ export class Node<K, V> implements INode<K, V> {
    */
   constructor(
     public key: K,
+    public value?: V,
     public parent?: Node<K, V>
   ) {
   }

@@ -4,7 +4,7 @@
  * Released under MIT license. See LICENSE in the project root for details.
  */
 
-import { CompareFunction, ISplayTree } from './types';
+import { CompareFunction, ISplayTree, INode } from './types';
 import { Node } from './node';
 
 export class SplayTree<K, V> implements ISplayTree<K, V> {
@@ -29,15 +29,14 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param key The key to add.
    * @return Whether the node was added.
    */
-  public add(key: K): boolean {
-    // TODO: Support value
+  public add(key: K, value?: V): boolean {
     if (!this._root) {
-      this._root = new Node(key);
+      this._root = new Node(key, value);
       this._size++;
       return true;
     }
 
-    const result = this._add(key, this._root);
+    const result = this._add(key, value, this._root);
     if (result) {
       // Splay tree
       this.contains(key);
@@ -52,21 +51,21 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param node The current node insertion is being considered on.
    * @return Whether the node was added.
    */
-  private _add(key: K, node: Node<K, V>): boolean {
+  private _add(key: K, value: V | undefined, node: Node<K, V>): boolean {
     if (this._compare(key, node.key) < 0) {
       if (node.left) {
-        return this._add(key, node.left);
+        return this._add(key, value, node.left);
       }
-      node.left = new Node(key, node);
+      node.left = new Node(key, value, node);
       this._size++;
       return true;
     }
 
     if (this._compare(key, node.key) > 0) {
       if (node.right) {
-        return this._add(key, node.right);
+        return this._add(key, value, node.right);
       }
-      node.right = new Node(key, node);
+      node.right = new Node(key, value, node);
       this._size++;
       return true;
     }
@@ -116,7 +115,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   /**
    * @return The maximum key of the tree.
    */
-  public findMaximum(): K {
+  public findMaximum(): INode<K, V> {
     if (!this._root) {
       return undefined;
     }
@@ -126,7 +125,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
       if (current.right) {
         current = current.right;
       } else {
-        return current.key;
+        return current;
       }
     }
   }
@@ -134,7 +133,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   /**
    * @return The minimum key of the tree.
    */
-  public findMinimum(): K {
+  public findMinimum(): INode<K, V> {
     if (!this._root) {
       return undefined;
     }
@@ -144,7 +143,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
       if (current.left) {
         current = current.left;
       } else {
-        return current.key;
+        return current;
       }
     }
   }

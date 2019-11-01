@@ -16,9 +16,9 @@ export interface ISplayTree<K, V> {
   readonly size: number;
 
   // TODO: Support adding optional value
-  add(key: K): boolean;
+  add(key: K, value?: V): boolean;
   contains(key: K): boolean;
-  findMaximum(): K;
-  findMinimum(): K;
+  findMaximum(): INode<K, V>;
+  findMinimum(): INode<K, V>;
   remove(key: K): boolean;
 }

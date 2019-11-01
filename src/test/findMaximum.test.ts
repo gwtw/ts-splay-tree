@@ -1,4 +1,4 @@
-import { TestSplayTree } from './testUtils';
+import { TestSplayTree, nodeEquals } from './testUtils';
 import { strictEqual } from 'assert';
 
 describe('findMaximum', () => {
@@ -8,12 +8,12 @@ describe('findMaximum', () => {
   });
 
   it('should return the maximum of the tree', () => {
-    const tree = new TestSplayTree<number, null>();
-    tree.add(2);
-    strictEqual(tree.findMaximum(), 2);
-    tree.add(1);
-    strictEqual(tree.findMaximum(), 2);
-    tree.add(3);
-    strictEqual(tree.findMaximum(), 3);
+    const tree = new TestSplayTree<number, number>();
+    tree.add(2, -2);
+    nodeEquals(tree.findMaximum(), 2, -2);
+    tree.add(1, -1);
+    nodeEquals(tree.findMaximum(), 2, -2);
+    tree.add(3, -3);
+    nodeEquals(tree.findMaximum(), 3, -3);
   });
 });
