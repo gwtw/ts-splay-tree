@@ -32,7 +32,7 @@
     "@types/node": "^12.12.3",
     "coveralls": "^3.0.7",
     "mocha": "^6.2.2",
-    "nyc": "11",
+    "nyc": "13",
     "tslint": "^5.9.1",
     "tslint-consistent-codestyle": "^1.13.0",
     "typescript": "3.6"
