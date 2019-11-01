@@ -15,7 +15,6 @@ export interface INode<K, V> {
 export interface ISplayTree<K, V> {
   readonly size: number;
 
-  // TODO: Support adding optional value
   add(key: K, value?: V): boolean;
   contains(key: K): boolean;
   findMaximum(): INode<K, V>;
