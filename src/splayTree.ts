@@ -206,8 +206,10 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     // minimum comes from the right sub-tree the parent must have a left node
     const minNode = minParent.left;
     const newKey = minNode.key;
+    const newValue = minNode.value;
     this._remove2(minNode);
     node.key = newKey;
+    node.value = newValue;
 
     return true;
   }
@@ -236,6 +238,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    */
   private _removeNodeWithLeftOnly(node: Node<K, V>): void {
     node.key = node.left.key;
+    node.value = node.left.value;
     node.right = node.left.right;
     if (node.right) {
       node.right.parent = node;
@@ -256,6 +259,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    */
   private _removeNodeWithRightOnly(node: Node<K, V>): void {
     node.key = node.right.key;
+    node.value = node.right.value;
     node.left = node.right.left;
     if (node.left) {
       node.left.parent = node;

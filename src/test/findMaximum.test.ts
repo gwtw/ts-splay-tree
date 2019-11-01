@@ -15,5 +15,9 @@ describe('findMaximum', () => {
     nodeEquals(tree.findMaximum(), 2, -2);
     tree.add(3, -3);
     nodeEquals(tree.findMaximum(), 3, -3);
+    tree.remove(3);
+    nodeEquals(tree.findMaximum(), 2, -2);
+    tree.remove(1);
+    nodeEquals(tree.findMaximum(), 2, -2);
   });
 });

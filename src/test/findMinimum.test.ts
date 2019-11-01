@@ -15,5 +15,9 @@ describe('findMinimum', () => {
     nodeEquals(tree.findMinimum(), 1, -1);
     tree.add(3, -3);
     nodeEquals(tree.findMinimum(), 1, -1);
+    tree.remove(1);
+    nodeEquals(tree.findMinimum(), 2, -2);
+    tree.remove(3);
+    nodeEquals(tree.findMinimum(), 2, -2);
   });
 });
