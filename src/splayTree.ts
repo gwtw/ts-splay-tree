@@ -202,7 +202,10 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     // both exist, replace with node minimum from right sub-tree and delete the
     // node from the right sub-tree
     const minParent = this._findParentOfMinimum(node.right, node);
-    const minNode = minParent.left ? minParent.left : minParent.right;
+    // The min node is guaranteed to be the left node not the right as this can
+    // only occur when the node has both children and if the parent of the
+    // minimum comes from the right sub-tree the parent must have a left node
+    const minNode = minParent.left;
     const newKey = minNode.key;
     this._remove2(minNode);
     node.key = newKey;
