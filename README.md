@@ -17,7 +17,11 @@ Note that the primary purpose of this library is education but it should work in
 
 ## Install
 
-TODO
+TODO: Publish package
+
+```bash
+npm install --save @gwtw/splay-tree
+```
 
 ## Usage
 
