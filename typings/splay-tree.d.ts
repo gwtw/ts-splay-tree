@@ -4,7 +4,7 @@
  * Released under MIT license. See LICENSE in the project root for details.
  */
 
-declare module '@gwtw/fibonacci-heap' {
+declare module '@gwtw/splay-tree' {
   export type CompareFunction<K> = (a: K, b: K) => number;
 
   export interface INode<K, V> {
