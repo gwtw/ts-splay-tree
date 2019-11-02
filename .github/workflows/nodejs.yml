@@ -5,7 +5,7 @@ on: [push]
 jobs:
 
   ci:
-    runs-on: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
@@ -28,7 +28,7 @@ jobs:
 
   release:
     needs: ci
-    if: github.ref == 'master'
+    if: github.ref == 'action_test'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
