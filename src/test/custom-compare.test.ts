@@ -6,7 +6,7 @@ describe('Custom compare', () => {
     const tree = new TestSplayTree<number, null>((a, b) => b - a);
     tree.add(1);
     tree.add(2);
-    strictEqual(tree.root.key, 2);
-    strictEqual(tree.root.right.key, 1);
+    strictEqual(tree.root!.key, 2);
+    strictEqual(tree.root!.right!.key, 1);
   });
 });

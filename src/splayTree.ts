@@ -8,14 +8,15 @@ import { CompareFunction, ISplayTree, INode } from './types';
 import { Node } from './node';
 
 export class SplayTree<K, V> implements ISplayTree<K, V> {
-  protected _root: Node<K, V>;
+  protected _root?: Node<K, V>;
   private _size = 0;
+  private _compare: CompareFunction<K> = defaultCompare;
 
   constructor(
-    private _compare?: CompareFunction<K, V>
+    customCompare?: CompareFunction<K>
   ) {
-    if (!_compare) {
-      this._compare = this._defaultCompare;
+    if (customCompare) {
+      this._compare = customCompare;
     }
   }
 
@@ -121,7 +122,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   /**
    * @return The maximum key of the tree.
    */
-  public findMaximum(): INode<K, V> {
+  public findMaximum(): INode<K, V> | undefined {
     if (!this._root) {
       return undefined;
     }
@@ -139,7 +140,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   /**
    * @return The minimum key of the tree.
    */
-  public findMinimum(): INode<K, V> {
+  public findMinimum(): INode<K, V> | undefined {
     if (!this._root) {
       return undefined;
     }
@@ -206,11 +207,11 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
 
     // both exist, replace with node minimum from right sub-tree and delete the
     // node from the right sub-tree
-    const minParent = this._findParentOfMinimum(node.right, node);
+    const minParent = this._findParentOfMinimum(node.right!, node);
     // The min node is guaranteed to be the left node not the right as this can
     // only occur when the node has both children and if the parent of the
     // minimum comes from the right sub-tree the parent must have a left node
-    const minNode = minParent.left;
+    const minNode = minParent.left!;
     const newKey = minNode.key;
     const newValue = minNode.value;
     this._remove2(minNode);
@@ -243,13 +244,13 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param node The node to remove.
    */
   private _removeNodeWithLeftOnly(node: Node<K, V>): void {
-    node.key = node.left.key;
-    node.value = node.left.value;
-    node.right = node.left.right;
+    node.key = node.left!.key;
+    node.value = node.left!.value;
+    node.right = node.left!.right;
     if (node.right) {
       node.right.parent = node;
     }
-    node.left = node.left.left;
+    node.left = node.left!.left;
     if (node.left) {
       node.left.parent = node;
     }
@@ -264,13 +265,13 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param node The node to remove.
    */
   private _removeNodeWithRightOnly(node: Node<K, V>): void {
-    node.key = node.right.key;
-    node.value = node.right.value;
-    node.left = node.right.left;
+    node.key = node.right!.key;
+    node.value = node.right!.value;
+    node.left = node.right!.left;
     if (node.left) {
       node.left.parent = node;
     }
-    node.right = node.right.right;
+    node.right = node.right!.right;
     if (node.right) {
       node.right.parent = node;
     }
@@ -334,7 +335,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param x The node being rotated.
    */
   private _rotateLeft(x: Node<K, V>): void {
-    const y = x.right;
+    const y = x.right!;
     x.right = y.left;
     if (y.left) {
       y.left.parent = x;
@@ -365,7 +366,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param x The node being rotated.
    */
   private _rotateRight(x: Node<K, V>): void {
-    const y = x.left;
+    const y = x.left!;
     x.left = y.right;
     if (y.right) {
       y.right.parent = x;
@@ -383,20 +384,20 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     y.right = x;
     x.parent = y;
   }
+}
 
-  /**
-   * Compares two nodes with each other.
-   * @param a The first key to compare.
-   * @param b The second key to compare.
-   * @return -1, 0 or 1 if a < b, a == b or a > b respectively.
-   */
-  private _defaultCompare(a: K, b: K): number {
-    if (a > b) {
-      return 1;
-    }
-    if (a < b) {
-      return -1;
-    }
-    return 0;
+/**
+ * Compares two nodes with each other.
+ * @param a The first key to compare.
+ * @param b The second key to compare.
+ * @return -1, 0 or 1 if a < b, a == b or a > b respectively.
+ */
+function defaultCompare<K>(a: K, b: K): number {
+  if (a > b) {
+    return 1;
   }
+  if (a < b) {
+    return -1;
+  }
+  return 0;
 }
