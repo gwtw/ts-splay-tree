@@ -1,7 +1,5 @@
 # ts-splay-tree
 
-[![Build Status](https://dev.azure.com/growingwiththeweb/ts-splay-tree/_apis/build/status/gwtw.ts-splay-tree?branchName=master)](https://dev.azure.com/growingwiththeweb/ts-splay-tree/_build/latest?definitionId=3&branchName=master)
-
 A TypeScript implementation of the [splay heap](http://www.growingwiththeweb.com/data-structures/splay-tree/overview/) data structure.
 
 Note that the primary purpose of this library is education but it should work in a production environment as well. It's certainly not as performant as it could be as it optimises for readability, abstraction and safety over raw performance.
