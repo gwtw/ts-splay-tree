@@ -80,16 +80,16 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * @param key The key to check.
    * @return Whether the node contains the key.
    */
-  public contains(key: K): boolean {
+  public contains(key: K): INode<K, V> | undefined {
     if (!this._root) {
-      return false;
+      return undefined;
     }
 
     const node = this._contains(key, this._root);
     if (node) {
       this._splay(node);
     }
-    return !!node;
+    return node;
   }
 
   /**
