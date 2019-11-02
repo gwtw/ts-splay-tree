@@ -4,7 +4,7 @@
  * Released under MIT license. See LICENSE in the project root for details.
  */
 
-export type CompareFunction<K, V> = (a: K, b: K) => number;
+export type CompareFunction<K> = (a: K, b: K) => number;
 
 export interface INode<K, V> {
   readonly key: K;
@@ -16,7 +16,7 @@ export interface ISplayTree<K, V> {
 
   add(key: K, value?: V): boolean;
   contains(key: K): boolean;
-  findMaximum(): INode<K, V>;
-  findMinimum(): INode<K, V>;
+  findMaximum(): INode<K, V> | undefined;
+  findMinimum(): INode<K, V> | undefined;
   remove(key: K): boolean;
 }

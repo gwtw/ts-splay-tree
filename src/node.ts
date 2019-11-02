@@ -10,12 +10,12 @@ export class Node<K, V> implements INode<K, V> {
   /**
    * The left child of the node.
    */
-  public left: Node<K, V>;
+  public left?: Node<K, V>;
 
   /**
    * The right child of the node.
    */
-  public right: Node<K, V>;
+  public right?: Node<K, V>;
 
   /**
    * Creates a binary tree node.
