@@ -6,7 +6,7 @@
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
     "test": "nyc -s -x '**/test/*' mocha lib/test/*.test.js",
-    "coverage": "nyc -x '**/test/*' mocha lib/test/*.test.js",
+    "coverage": "nyc --check-coverage --lines=100 -x '**/test/*' mocha lib/test/*.test.js",
     "watch": "tsc -w",
     "prepublish": "npm run build"
   },
