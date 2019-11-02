@@ -1,6 +1,0 @@
-sudo: false
-language: node_js
-node_js:
-  - 'stable'
-before_script: npm run build
-after_success: nyc report --reporter=text-lcov | coveralls
