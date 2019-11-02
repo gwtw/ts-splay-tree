@@ -3,7 +3,6 @@ name: CI
 on: [push]
 
 jobs:
-
   linux:
     runs-on: ubuntu-latest
     strategy:
