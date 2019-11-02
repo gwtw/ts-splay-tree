@@ -74,14 +74,11 @@ while (tree2.size > 0) {
 
 | Operation      | Complexity |
 | -------------- | ---------- |
-| clear          | Θ(1)\*     |
-| decreaseKey    | Θ(1)\*     |
-| delete         | O(log n)\* |
-| extractMinimum | O(log n)\* |
-| findMinimum    | Θ(1)       |
-| insert         | Θ(1)       |
-| isEmpty        | Θ(1)       |
-| size           | Θ(n)       |
-| union          | Θ(1)       |
+| add            | O(log n)\* |
+| contains       | O(log n)\* |
+| findMaximum    | O(log n)\* |
+| findMinimum    | O(log n)\* |
+| remove         | O(log n)\* |
+| size           | Θ(1)       |
 
 \* amortized
