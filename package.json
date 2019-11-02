@@ -1,18 +1,21 @@
 {
-  "name": "@tyriar/splay-tree",
-  "version": "2.0.4",
+  "name": "@gwtw/splay-tree",
+  "version": "0.1.0",
   "description": "An implementation of the splay tree data structure",
   "scripts": {
     "build": "tsc",
     "lint": "tslint 'src/**/*.ts'",
     "test": "nyc -s -x '**/test/*' mocha lib/test/*.test.js",
-    "coverage": "nyc -x '**/test/*' mocha lib/test/*.test.js",
+    "coverage": "nyc --check-coverage --lines=100 -x '**/test/*' mocha lib/test/*.test.js",
     "watch": "tsc -w",
     "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/gwtw/ts-splay-tree.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "computer science",
@@ -30,7 +33,6 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.3",
-    "coveralls": "^3.0.7",
     "mocha": "^6.2.2",
     "nyc": "13",
     "tslint": "^5.9.1",
