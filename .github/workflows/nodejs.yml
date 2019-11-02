@@ -3,6 +3,7 @@ name: CI
 on: [push]
 
 jobs:
+
   ci:
     runs-on: ubuntu-latest
     strategy:
@@ -24,6 +25,7 @@ jobs:
       run: |
         npm run lint
         npm run coverage
+
   release:
     needs: ci
     runs-on: ubuntu-latest
