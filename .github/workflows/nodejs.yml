@@ -3,14 +3,11 @@ name: CI
 on: [push]
 
 jobs:
-  build:
-
+  ci:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [12.x]
-
+        node-version: [8.x, 10.x, 12.x]
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -28,3 +25,24 @@ jobs:
         npm run lint
         npm run coverage
     - uses: Tyriar/action-npm-publish-new-versions@master
+  release:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+        registry-url: 'https://npm.pkg.github.com'
+    - name: Install and build
+      run: |
+        npm ci
+        npm run build --if-present
+      env:
+        CI: true
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
