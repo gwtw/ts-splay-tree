@@ -28,7 +28,7 @@ jobs:
 
   release:
     needs: ci
-    if: github.ref == 'action_test'
+    if: github.ref=='action_test'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
