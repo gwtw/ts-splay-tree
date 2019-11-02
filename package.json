@@ -1,6 +1,6 @@
 {
-  "name": "@tyriar/splay-tree",
-  "version": "2.0.4",
+  "name": "@gwtw/splay-tree",
+  "version": "0.1.0",
   "description": "An implementation of the splay tree data structure",
   "scripts": {
     "build": "tsc",
