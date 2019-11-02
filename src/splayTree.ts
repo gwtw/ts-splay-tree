@@ -91,8 +91,14 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     return !!node;
   }
 
-  // TODO: jsdoc
-  private _contains(key: K, node: Node<K, V>): Node<K, V> {
+  /**
+   * Determines whether the tree contains a key under a particular node.
+   *
+   * @param key The key to check.
+   * @param node The current node insertion is being considered on.
+   * @return The node that was found or undefined.
+   */
+  private _contains(key: K, node: Node<K, V>): Node<K, V> | undefined {
     const result = this._compare(key, node.key);
 
     if (result < 0) {
