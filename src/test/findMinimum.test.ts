@@ -1,4 +1,4 @@
-import { TestSplayTree } from './testUtils';
+import { TestSplayTree, nodeEquals } from './testUtils';
 import { strictEqual } from 'assert';
 
 describe('findMinimum', () => {
@@ -8,12 +8,16 @@ describe('findMinimum', () => {
   });
 
   it('should return the minimum of the tree', () => {
-    const tree = new TestSplayTree<number, null>();
-    tree.add(2);
-    strictEqual(tree.findMinimum(), 2);
-    tree.add(1);
-    strictEqual(tree.findMinimum(), 1);
-    tree.add(3);
-    strictEqual(tree.findMinimum(), 1);
+    const tree = new TestSplayTree<number, number>();
+    tree.add(2, -2);
+    nodeEquals(tree.findMinimum(), 2, -2);
+    tree.add(1, -1);
+    nodeEquals(tree.findMinimum(), 1, -1);
+    tree.add(3, -3);
+    nodeEquals(tree.findMinimum(), 1, -1);
+    tree.remove(1);
+    nodeEquals(tree.findMinimum(), 2, -2);
+    tree.remove(3);
+    nodeEquals(tree.findMinimum(), 2, -2);
   });
 });

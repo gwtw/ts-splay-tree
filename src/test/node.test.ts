@@ -4,7 +4,7 @@ import { strictEqual } from 'assert';
 describe('node', () => {
   it('should remove the left child', () => {
     const node = new Node<number, number>(2);
-    const nodeLeft = new Node<number, number>(1, node);
+    const nodeLeft = new Node<number, number>(1, undefined, node);
     node.left = nodeLeft;
     node.removeChild(nodeLeft);
     strictEqual(node.key, 2);
@@ -15,7 +15,7 @@ describe('node', () => {
     // is only ever called when removing the minimum of the 2 children or when
     // it's the root.
     const node = new Node<number, number>(1);
-    const nodeRight = new Node<number, number>(2, node);
+    const nodeRight = new Node<number, number>(2, undefined, node);
     node.right = nodeRight;
     node.removeChild(nodeRight);
     strictEqual(node.key, 1);
