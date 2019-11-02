@@ -24,7 +24,6 @@ jobs:
       run: |
         npm run lint
         npm run coverage
-    - uses: Tyriar/action-npm-publish-new-versions@master
   release:
     needs: ci
     runs-on: ubuntu-latest
