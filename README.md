@@ -15,7 +15,19 @@ Note that the primary purpose of this library is education but it should work in
 
 ## Install
 
-TODO: Publish package
+The package is published to the [GitHub Package Registry](https://help.github.com/en/github/managing-packages-with-github-package-registry/configuring-npm-for-use-with-github-package-registry#installing-a-package), it first requires an `.npmrc` that specifies that `@gwtw` packages are to be fetched from there:
+
+```
+@gwtw:registry=https://npm.pkg.github.com
+```
+
+Then authenticate using a GitHub personal access token that contains the `read:packages`:
+
+```
+npm login
+```
+
+Then install as normal:
 
 ```bash
 npm install --save @gwtw/splay-tree
