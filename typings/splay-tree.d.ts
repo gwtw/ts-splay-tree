@@ -13,6 +13,7 @@ declare module '@gwtw/splay-tree' {
   }
 
   export interface ISplayTree<K, V> {
+    readonly isEmpty: boolean;
     readonly size: number;
 
     insert(key: K, value?: V): boolean;

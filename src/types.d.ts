@@ -12,6 +12,7 @@ export interface INode<K, V> {
 }
 
 export interface ISplayTree<K, V> {
+  readonly isEmpty: boolean;
   readonly size: number;
 
   insert(key: K, value?: V): boolean;

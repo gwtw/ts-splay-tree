@@ -24,6 +24,10 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     return this._size;
   }
 
+  public get isEmpty(): boolean {
+    return this._size === 0;
+  }
+
   /**
    * Inserts a key into the tree.
    *
