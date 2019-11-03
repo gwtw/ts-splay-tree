@@ -10,7 +10,7 @@ describe('delete', () => {
   it('should return false when the tree does not contain the key', () => {
     const tree = new TestSplayTree<number, undefined>();
     tree.insert(1);
-    ok(!tree.contains(2));
+    ok(!tree.search(2));
   });
 
   it('should delete items from the tree', () => {

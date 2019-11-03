@@ -16,7 +16,7 @@ declare module '@gwtw/splay-tree' {
     readonly size: number;
 
     insert(key: K, value?: V): boolean;
-    contains(key: K): INode<K, V> | undefined;
+    search(key: K): INode<K, V> | undefined;
     findMaximum(): INode<K, V> | undefined;
     findMinimum(): INode<K, V> | undefined;
     delete(key: K): boolean;

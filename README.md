@@ -38,8 +38,8 @@ tree.insert(7);
 tree.insert(8, {foo: 'bar'});
 tree.insert(1, {foo: 'baz'});
 
-// Check if the tree contains keys
-const found = tree.contains(8);
+// Search the tree for a key
+const found = tree.search(8);
 console.log(`key: ${found.key}, value: ${found.value}`);
 // > key: 8, value: {foo: 'bar'}
 
@@ -76,11 +76,11 @@ while (tree2.size > 0) {
 
 | Operation      | Complexity |
 | -------------- | ---------- |
-| contains       | O(log n)\* |
 | delete         | O(log n)\* |
 | findMaximum    | O(log n)\* |
 | findMinimum    | O(log n)\* |
 | insert         | O(log n)\* |
+| search         | O(log n)\* |
 | size           | Θ(1)       |
 
 \* amortized

@@ -40,7 +40,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     const result = this._insert(key, value, this._root);
     if (result) {
       // Splay tree
-      this.contains(key);
+      this.search(key);
     }
     return result;
   }
@@ -75,17 +75,17 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Determines whether the tree contains a key.
+   * Searches the tree for a particular key.
    *
    * @param key The key to check.
-   * @return Whether the node contains the key.
+   * @return The node that was found or undefined.
    */
-  public contains(key: K): INode<K, V> | undefined {
+  public search(key: K): INode<K, V> | undefined {
     if (!this._root) {
       return undefined;
     }
 
-    const node = this._contains(key, this._root);
+    const node = this._search(key, this._root);
     if (node) {
       this._splay(node);
     }
@@ -93,27 +93,27 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Determines whether the tree contains a key under a particular node.
+   * Searches a node for a particular key.
    *
    * @param key The key to check.
    * @param node The current node insertion is being considered on.
    * @return The node that was found or undefined.
    */
-  private _contains(key: K, node: Node<K, V>): Node<K, V> | undefined {
+  private _search(key: K, node: Node<K, V>): Node<K, V> | undefined {
     const result = this._compare(key, node.key);
 
     if (result < 0) {
       if (!node.left) {
         return undefined;
       }
-      return this._contains(key, node.left);
+      return this._search(key, node.left);
     }
 
     if (result > 0) {
       if (!node.right) {
         return undefined;
       }
-      return this._contains(key, node.right);
+      return this._search(key, node.right);
     }
 
     return node;
@@ -166,7 +166,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
       return false;
     }
     // Splay tree
-    this.contains(key);
+    this.search(key);
     return this._delete(key, this._root);
   }
 
