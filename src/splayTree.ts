@@ -24,23 +24,27 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     return this._size;
   }
 
+  public get isEmpty(): boolean {
+    return this._size === 0;
+  }
+
   /**
-   * Adds a key to the tree.
+   * Inserts a key into the tree.
    *
-   * @param key The key to add.
-   * @return Whether the node was added.
+   * @param key The key to insert.
+   * @return Whether the node was inserted.
    */
-  public add(key: K, value?: V): boolean {
+  public insert(key: K, value?: V): boolean {
     if (!this._root) {
       this._root = new Node(key, value);
       this._size++;
       return true;
     }
 
-    const result = this._add(key, value, this._root);
+    const result = this._insert(key, value, this._root);
     if (result) {
       // Splay tree
-      this.contains(key);
+      this.search(key);
     }
     return result;
   }
@@ -50,12 +54,12 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    *
    * @param key The key to insert.
    * @param node The current node insertion is being considered on.
-   * @return Whether the node was added.
+   * @return Whether the node was inserted.
    */
-  private _add(key: K, value: V | undefined, node: Node<K, V>): boolean {
+  private _insert(key: K, value: V | undefined, node: Node<K, V>): boolean {
     if (this._compare(key, node.key) < 0) {
       if (node.left) {
-        return this._add(key, value, node.left);
+        return this._insert(key, value, node.left);
       }
       node.left = new Node(key, value, node);
       this._size++;
@@ -64,7 +68,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
 
     if (this._compare(key, node.key) > 0) {
       if (node.right) {
-        return this._add(key, value, node.right);
+        return this._insert(key, value, node.right);
       }
       node.right = new Node(key, value, node);
       this._size++;
@@ -75,17 +79,17 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Determines whether the tree contains a key.
+   * Searches the tree for a particular key.
    *
    * @param key The key to check.
-   * @return Whether the node contains the key.
+   * @return The node that was found or undefined.
    */
-  public contains(key: K): INode<K, V> | undefined {
+  public search(key: K): INode<K, V> | undefined {
     if (!this._root) {
       return undefined;
     }
 
-    const node = this._contains(key, this._root);
+    const node = this._search(key, this._root);
     if (node) {
       this._splay(node);
     }
@@ -93,27 +97,27 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Determines whether the tree contains a key under a particular node.
+   * Searches a node for a particular key.
    *
    * @param key The key to check.
    * @param node The current node insertion is being considered on.
    * @return The node that was found or undefined.
    */
-  private _contains(key: K, node: Node<K, V>): Node<K, V> | undefined {
+  private _search(key: K, node: Node<K, V>): Node<K, V> | undefined {
     const result = this._compare(key, node.key);
 
     if (result < 0) {
       if (!node.left) {
         return undefined;
       }
-      return this._contains(key, node.left);
+      return this._search(key, node.left);
     }
 
     if (result > 0) {
       if (!node.right) {
         return undefined;
       }
-      return this._contains(key, node.right);
+      return this._search(key, node.right);
     }
 
     return node;
@@ -156,52 +160,54 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Removes a key from the tree.
+   * Deletes a key from the tree.
    *
-   * @param key The key to remove.
-   * @return Whether the key was removed.
+   * @param key The key to delete.
+   * @return Whether the key was deleted.
    */
-  public remove(key: K): boolean {
+  public delete(key: K): boolean {
     if (!this._root) {
       return false;
     }
     // Splay tree
-    this.contains(key);
-    return this._remove(key, this._root);
+    this.search(key);
+    return this._delete(key, this._root);
   }
 
-  private _remove(key: K, node: Node<K, V>): boolean {
+  // TODO: jsdoc
+  private _delete(key: K, node: Node<K, V>): boolean {
     const result = this._compare(key, node.key);
     if (result < 0) {
       if (node.left) {
-        return this._remove(key, node.left);
+        return this._delete(key, node.left);
       }
       return false;
     }
 
     if (result > 0) {
       if (node.right) {
-        return this._remove(key, node.right);
+        return this._delete(key, node.right);
       }
       return false;
     }
 
-    return this._remove2(node);
+    return this._delete2(node);
   }
 
-  private _remove2(node: Node<K, V>): boolean {
+  // TODO: jsdoc
+  private _delete2(node: Node<K, V>): boolean {
     if (!node.left && !node.right) {
-      this._removeNodeWithNoChildren(node);
+      this._deleteNodeWithNoChildren(node);
       return true;
     }
 
     if (node.left && !node.right) {
-      this._removeNodeWithLeftOnly(node);
+      this._deleteNodeWithLeftOnly(node);
       return true;
     }
 
     if (node.right && !node.left) {
-      this._removeNodeWithRightOnly(node);
+      this._deleteNodeWithRightOnly(node);
       return true;
     }
 
@@ -214,7 +220,7 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     const minNode = minParent.left!;
     const newKey = minNode.key;
     const newValue = minNode.value;
-    this._remove2(minNode);
+    this._delete2(minNode);
     node.key = newKey;
     node.value = newValue;
 
@@ -222,12 +228,12 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Removes a node with no children.
+   * Deletes a node with no children.
    *
-   * @param tree The tree to remove the node from.
-   * @param node The node to remove.
+   * @param tree The tree to delete the node from.
+   * @param node The node to delete.
    */
-  private _removeNodeWithNoChildren(node: Node<K, V>): void {
+  private _deleteNodeWithNoChildren(node: Node<K, V>): void {
     if (node.parent) {
       node.parent.removeChild(node);
     } else {
@@ -237,13 +243,13 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Removes a node with a left child only, moving the left child in to the
+   * Deletes a node with a left child only, moving the left child in to the
    * node's place.
    *
-   * @param tree The tree to remove the node from.
-   * @param node The node to remove.
+   * @param tree The tree to delete the node from.
+   * @param node The node to delete.
    */
-  private _removeNodeWithLeftOnly(node: Node<K, V>): void {
+  private _deleteNodeWithLeftOnly(node: Node<K, V>): void {
     node.key = node.left!.key;
     node.value = node.left!.value;
     node.right = node.left!.right;
@@ -258,13 +264,13 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
   }
 
   /**
-   * Removes a node with a right child only, moving the right child in to the
+   * Deletes a node with a right child only, moving the right child in to the
    * node's place.
    *
-   * @param tree The tree to remove the node from.
-   * @param node The node to remove.
+   * @param tree The tree to delete the node from.
+   * @param node The node to delete.
    */
-  private _removeNodeWithRightOnly(node: Node<K, V>): void {
+  private _deleteNodeWithRightOnly(node: Node<K, V>): void {
     node.key = node.right!.key;
     node.value = node.right!.value;
     node.left = node.right!.left;

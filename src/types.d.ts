@@ -12,11 +12,12 @@ export interface INode<K, V> {
 }
 
 export interface ISplayTree<K, V> {
+  readonly isEmpty: boolean;
   readonly size: number;
 
-  add(key: K, value?: V): boolean;
-  contains(key: K): INode<K, V> | undefined;
+  insert(key: K, value?: V): boolean;
+  search(key: K): INode<K, V> | undefined;
   findMaximum(): INode<K, V> | undefined;
   findMinimum(): INode<K, V> | undefined;
-  remove(key: K): boolean;
+  delete(key: K): boolean;
 }
