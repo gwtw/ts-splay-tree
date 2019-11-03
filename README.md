@@ -31,12 +31,12 @@ import { SplayTree } from '@gwtw/splay-tree';
 
 // Construct SplayTree
 const tree = new SplayTree<number, any>();
-// Add keys only
-tree.add(3);
-tree.add(7);
-// Add keys and values
-tree.add(8, {foo: 'bar'});
-tree.add(1, {foo: 'baz'});
+// Insert keys only
+tree.insert(3);
+tree.insert(7);
+// Insert keys and values
+tree.insert(8, {foo: 'bar'});
+tree.insert(1, {foo: 'baz'});
 
 // Check if the tree contains keys
 const found = tree.contains(8);
@@ -55,15 +55,15 @@ while (!tree.isEmpty()) {
 
 // Construct custom compare SplayTree
 const tree2 = new SplayTree<string, string>((a, b) => b - a);
-tree2.add(2);
-tree2.add(1);
-tree2.add(4);
-tree2.add(3);
+tree2.insert(2);
+tree2.insert(1);
+tree2.insert(4);
+tree2.insert(3);
 
 // Extract all nodes in order
 while (tree2.size > 0) {
   const node = tree2.findMinimum();
-  tree2.remove(node);
+  tree2.delete(node);
   console.log(`key: ${node.key}`);
 }
 // > key: 4
@@ -76,11 +76,11 @@ while (tree2.size > 0) {
 
 | Operation      | Complexity |
 | -------------- | ---------- |
-| add            | O(log n)\* |
 | contains       | O(log n)\* |
+| delete         | O(log n)\* |
 | findMaximum    | O(log n)\* |
 | findMinimum    | O(log n)\* |
-| remove         | O(log n)\* |
+| insert         | O(log n)\* |
 | size           | Θ(1)       |
 
 \* amortized

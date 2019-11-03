@@ -12,9 +12,9 @@ describe('contains', () => {
     ok(!tree.contains(1));
     ok(!tree.contains(2));
     ok(!tree.contains(3));
-    tree.add(3);
-    tree.add(1);
-    tree.add(2);
+    tree.insert(3);
+    tree.insert(1);
+    tree.insert(2);
     ok(tree.contains(1));
     ok(tree.contains(2));
     ok(tree.contains(3));
@@ -22,7 +22,7 @@ describe('contains', () => {
 
   it('should return false when the expected parent has no children', () => {
     const tree = new TestSplayTree<number, null>();
-    tree.add(2);
+    tree.insert(2);
     ok(!tree.contains(1));
     ok(!tree.contains(3));
   });

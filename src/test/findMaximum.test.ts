@@ -9,15 +9,15 @@ describe('findMaximum', () => {
 
   it('should return the maximum of the tree', () => {
     const tree = new TestSplayTree<number, number>();
-    tree.add(2, -2);
+    tree.insert(2, -2);
     nodeEquals(tree.findMaximum(), 2, -2);
-    tree.add(1, -1);
+    tree.insert(1, -1);
     nodeEquals(tree.findMaximum(), 2, -2);
-    tree.add(3, -3);
+    tree.insert(3, -3);
     nodeEquals(tree.findMaximum(), 3, -3);
-    tree.remove(3);
+    tree.delete(3);
     nodeEquals(tree.findMaximum(), 2, -2);
-    tree.remove(1);
+    tree.delete(1);
     nodeEquals(tree.findMaximum(), 2, -2);
   });
 });

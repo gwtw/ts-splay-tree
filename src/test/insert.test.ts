@@ -1,21 +1,21 @@
 import { TestSplayTree } from './testUtils';
 import { strictEqual } from 'assert';
 
-describe('add', () => {
+describe('insert', () => {
   it('should return the size of the tree', () => {
     const tree = new TestSplayTree<number, null>();
-    tree.add(1);
-    tree.add(2);
-    tree.add(3);
-    tree.add(4);
-    tree.add(5);
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(4);
+    tree.insert(5);
     strictEqual(tree.size, 5);
   });
 
-  it('should do nothing when adding the same key tree', () => {
+  it('should do nothing when inserting the same key tree', () => {
     const tree = new TestSplayTree<number, null>();
-    tree.add(1);
-    tree.add(1);
+    tree.insert(1);
+    tree.insert(1);
     strictEqual(tree.size, 1);
   });
 });
