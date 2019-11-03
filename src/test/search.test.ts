@@ -3,12 +3,12 @@ import { ok, strictEqual } from 'assert';
 
 describe('search', () => {
   it('should return false if the tree is empty', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     ok(!tree.search(1));
   });
 
   it('should return the node being searched for', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     ok(!tree.search(1));
     ok(!tree.search(2));
     ok(!tree.search(3));
@@ -21,7 +21,7 @@ describe('search', () => {
   });
 
   it('should return false when the expected parent has no children', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     tree.insert(2);
     ok(!tree.search(1));
     ok(!tree.search(3));

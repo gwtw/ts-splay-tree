@@ -3,7 +3,7 @@ import { strictEqual } from 'assert';
 
 describe('insert', () => {
   it('should return the size of the tree', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     strictEqual(tree.isEmpty, true);
     tree.insert(1);
     tree.insert(2);
@@ -15,7 +15,7 @@ describe('insert', () => {
   });
 
   it('should do nothing when inserting the same key tree', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     tree.insert(1);
     tree.insert(1);
     strictEqual(tree.size, 1);

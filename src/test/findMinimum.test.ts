@@ -3,7 +3,7 @@ import { strictEqual } from 'assert';
 
 describe('findMinimum', () => {
   it('should return undefined if the tree is empty', () => {
-    const tree = new TestSplayTree<number, null>();
+    const tree = new TestSplayTree<number, undefined>();
     strictEqual(tree.findMinimum(), undefined);
   });
 
