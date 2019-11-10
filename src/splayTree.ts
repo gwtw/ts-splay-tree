@@ -174,7 +174,13 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     return this._delete(key, this._root);
   }
 
-  // TODO: jsdoc
+  /**
+   * Deletes a key under a node.
+   *
+   * @param key The key to delete.
+   * @param node The current node to delete under.
+   * @return Whether the key was deleted.
+   */
   private _delete(key: K, node: Node<K, V>): boolean {
     const result = this._compare(key, node.key);
     if (result < 0) {
@@ -191,24 +197,30 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
       return false;
     }
 
-    return this._delete2(node);
+    this._delete2(node);
+    return true;
   }
 
-  // TODO: jsdoc
-  private _delete2(node: Node<K, V>): boolean {
+  /**
+   * Deletes a node, adjusting children and parent links as appropriate.
+   *
+   * @param node The node being deleted.
+   * @return Whether the key was deleted.
+   */
+  private _delete2(node: Node<K, V>): void {
     if (!node.left && !node.right) {
       this._deleteNodeWithNoChildren(node);
-      return true;
+      return;
     }
 
     if (node.left && !node.right) {
       this._deleteNodeWithLeftOnly(node);
-      return true;
+      return;
     }
 
     if (node.right && !node.left) {
       this._deleteNodeWithRightOnly(node);
-      return true;
+      return;
     }
 
     // both exist, replace with node minimum from right sub-tree and delete the
@@ -223,8 +235,6 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
     this._delete2(minNode);
     node.key = newKey;
     node.value = newValue;
-
-    return true;
   }
 
   /**
@@ -246,7 +256,6 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * Deletes a node with a left child only, moving the left child in to the
    * node's place.
    *
-   * @param tree The tree to delete the node from.
    * @param node The node to delete.
    */
   private _deleteNodeWithLeftOnly(node: Node<K, V>): void {
@@ -267,7 +276,6 @@ export class SplayTree<K, V> implements ISplayTree<K, V> {
    * Deletes a node with a right child only, moving the right child in to the
    * node's place.
    *
-   * @param tree The tree to delete the node from.
    * @param node The node to delete.
    */
   private _deleteNodeWithRightOnly(node: Node<K, V>): void {
