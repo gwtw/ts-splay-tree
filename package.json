@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.3",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "nyc": "13",
     "tslint": "^5.9.1",
     "tslint-consistent-codestyle": "^1.13.0",
